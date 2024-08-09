@@ -8,7 +8,7 @@ import webbrowser
 import time
 import numpy as np
 import random
-from distutils.version import StrictVersion as Version
+from packaging.version import parse as parse_version
 
 from tuner_audio.audio_analyzer import AudioAnalyzer
 from tuner_audio.threading_helper import ProtectedList
@@ -36,7 +36,7 @@ class App(tkinter.Tk):
     def __init__(self, *args, **kwargs):
         if not Settings.COMPILED_APP_MODE:
             if sys.platform == "darwin":  # macOS
-                if Version(tkinter.Tcl().call("info", "patchlevel")) >= Version("8.6.9"):  # Tcl/Tk >= 8.6.9
+                if parse_version(tkinter.Tcl().call("info", "patchlevel")) >= parse_version("8.6.9"):  # Tcl/Tk >= 8.6.9
                     os.system("defaults write -g NSRequiresAquaSystemAppearance -bool No")  # Only for dark-mode testing!
                     # WARNING: This command applies macOS dark-mode on all programs. This can cause bugs on some programs.
                     # Currently this works only with anaconda python version (python.org Tcl/Tk version is only 8.6.8).
@@ -153,7 +153,7 @@ class App(tkinter.Tk):
                 sys.stderr.write(str(err) + "/n")
                 return
 
-            if Version(latest_version) > Version(Settings.VERSION):
+            if parse_version(latest_version) > parse_version(Settings.VERSION):
                 answer = tkinter.messagebox.askyesno(title=Settings.APP_NAME,
                                                      message="A new version of this app is available. \n\n" +
                                                              "Do you want to download it?")
@@ -186,7 +186,7 @@ class App(tkinter.Tk):
 
         if not Settings.COMPILED_APP_MODE:
             if sys.platform == "darwin":  # macOS
-                if Version(tkinter.Tcl().call("info", "patchlevel")) >= Version("8.6.9"):  # Tcl/Tk >= 8.6.9
+                if parse_version(tkinter.Tcl().call("info", "patchlevel")) >= parse_version("8.6.9"):  # Tcl/Tk >= 8.6.9
                     os.system("defaults delete -g NSRequiresAquaSystemAppearance")  # Only for dark-mode testing!
                     # This command reverts the dark-mode setting for all programs.
                     pass

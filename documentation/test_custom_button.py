@@ -6,7 +6,7 @@ import tkinter
 import tkinter.messagebox
 import os
 import sys
-from distutils.version import StrictVersion as Version
+from pkg_resources import parse_version
 
 from tkinter_custom_button import TkinterCustomButton
 
@@ -21,7 +21,7 @@ HEIGHT = 400
 class App(tkinter.Tk):
     def __init__(self, *args, **kwargs):
         if sys.platform == "darwin":  # macOS
-            if Version(tkinter.Tcl().call("info", "patchlevel")) >= Version("8.6.9"):  # Tcl/Tk >= 8.6.9
+            if parse_version(tkinter.Tcl().call("info", "patchlevel")) >= parse_version("8.6.9"):  # Tcl/Tk >= 8.6.9
                 os.system("defaults write -g NSRequiresAquaSystemAppearance -bool No")  # turn on dark mode for all apps
                 # Currently this works only with anaconda python version (python.org Tcl/Tk version is only 8.6.8).
 
@@ -191,7 +191,7 @@ class App(tkinter.Tk):
 
     def on_closing(self, event=0):
         if sys.platform == "darwin":  # macOS
-            if Version(tkinter.Tcl().call("info", "patchlevel")) >= Version("8.6.9"):  # Tcl/Tk >= 8.6.9
+            if parse_version(tkinter.Tcl().call("info", "patchlevel")) >= parse_version("8.6.9"):  # Tcl/Tk >= 8.6.9
                 os.system("defaults delete -g NSRequiresAquaSystemAppearance")  # turn off dark mode for all apps
 
         self.destroy()

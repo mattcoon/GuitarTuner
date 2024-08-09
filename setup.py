@@ -26,7 +26,7 @@ IMAGE_FILES = ["assets/images/arrowDown_hovered.png",
 OPTIONS = {'argv_emulation': False,
            'includes': 'numpy, tkinter, PIL, pyaudio, darkdetect, requests',
            'excludes': '',
-           'frameworks': '/Users/{}/miniconda3/lib/libffi.6.dylib,'.format(USER_NAME) +
+           'frameworks': '/Users/{}/miniconda3/lib/libffi.7.dylib,'.format(USER_NAME) +
                          '/Users/{}/miniconda3/lib/libtk8.6.dylib,'.format(USER_NAME) +
                          '/Users/{}/miniconda3/lib/libtcl8.6.dylib'.format(USER_NAME),
            # For whatever reason, py2app didn't include these 3 frameworks automatically. (path can be different)
